@@ -9,3 +9,9 @@ neutered        BOOLEAN,
 weigth_kg       NUMERIC,
 PRIMARY KEY(id)
 );
+
+
+/* Add new column */
+
+ALTER TABLE ANIMALS   
+ADD COLUMN species VARCHAR(100);  
