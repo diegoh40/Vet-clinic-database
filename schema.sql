@@ -10,7 +10,6 @@ weigth_kg       NUMERIC,
 PRIMARY KEY(id)
 );
 
-
 /* Add new column */
 
 ALTER TABLE ANIMALS   
