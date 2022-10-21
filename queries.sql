@@ -76,8 +76,8 @@ AND owners.full_name = 'Jennifer Orwell';/*List all Digimon owned by Jennifer Or
 SELECT animals.name 
 FROM animals 
 JOIN owners ON owners.id = animals.owner_id 
-AND owners.full_name = 'Dean Winchester' 
-WHERE animals.escape_attempts = 0; /*List all animals owned by Dean Winchester that haven't tried to escape*/
+WHERE owners.full_name = 'Dean Winchester'
+AND animals.escape_attempts = 0; /*List all animals owned by Dean Winchester that haven't tried to escape*/
 
 
 SELECT owners.full_name, COUNT(animals.owner_id) AS how_has_more_pets
