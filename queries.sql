@@ -16,8 +16,8 @@ UPDATE ANIMALS SET species = unspecified
 ROLLBACK;
 
 BEGIN;
-UPDATE ANIMALS SET species = 'digimon' WHERE name LIKE '%mon';
-UPDATE ANIMALS SET species = 'pokemon' WHERE species = '';
+UPDATE ANIMALS SET species = 'Digimon' WHERE name LIKE '%mon';
+UPDATE ANIMALS SET species = 'Pokemon' WHERE species = '';
 COMMIT;
 
 BEGIN;
@@ -43,3 +43,49 @@ SELECT  species, MIN(escape_attempts) FROM animals GROUP BY species;
 SELECT  species, MIN(weigth_kg) FROM animals GROUP BY species;
 SELECT  species, MIN(weigth_kg) FROM animals GROUP BY species;
 SELECT species, AVG(escape_attempts) FROM animals WHERE date_of_birth BETWEEN '1990-01-01' AND '2000-12-31' GROUP BY species;
+
+/*Quaries transaction day 3*/
+
+vet_clinic=# UPDATE ANIMALS SET species_id = 2 WHERE name LIKE '%mon';
+UPDATE ANIMALS SET species_id = 1 WHERE species_id <> 2;
+
+/*Quaries using JOIN */
+
+SELECT name 
+FROM animals 
+INNER JOIN owners ON owners.full_name = 'Melody Pond' 
+AND owners.id = animals.owner_id; /*What animals belong to Melody Pond? */
+
+SELECT animals.name 
+FROM animals 
+JOIN species ON  species.name = 'Pokemon'; /*List of all animals that are pokemon*/
+
+SELECT owners.full_name, animals.name  
+FROM owners 
+LEFT JOIN animals ON  owners.id = animals.owner_id;/*List all owners and their animals*/
+
+SELECT species.name, COUNT(animals.name)  
+FROM species 
+LEFT JOIN animals ON species.id = animals.species_id GROUP BY species.name; /*How many animals are there per species?*/
+
+SELECT name AS Jennifer_Animals 
+FROM animals 
+JOIN owners ON owners.id = animals.owner_id 
+AND owners.full_name = 'Jennifer Orwell';/*List all Digimon owned by Jennifer Orwell*/
+
+SELECT animals.name 
+FROM animals 
+JOIN owners ON owners.id = animals.owner_id 
+AND owners.full_name = 'Dean Winchester' 
+AND animals.escape_attempts = 0; /*List all animals owned by Dean Winchester that haven't tried to escape*/
+
+
+SELECT owners.full_name, COUNT(animals.owner_id) AS how_has_more_pets
+FROM animals 
+INNER JOIN owners ON owners.id = animals.owner_id
+GROUP BY owners.full_name
+ORDER BY COUNT(animals.owner_id) DESC ;/*Who owns the most animals*/
+
+
+
+
